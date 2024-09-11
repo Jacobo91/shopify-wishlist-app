@@ -3,10 +3,12 @@
 client_id = "e118e7ee216306ccbc93df4b4c2f2dbf"
 name = "wishlist-app"
 handle = "wishlist-app-189"
-application_url = "https://example.com/"
+application_url = "https://mh-restaurants-spray-suffer.trycloudflare.com"
 embedded = true
 
 [build]
+automatically_update_urls_on_dev = true
+dev_store_url = "la-tienda-de-jaco.myshopify.com"
 include_config_on_deploy = true
 
 [access_scopes]
@@ -14,7 +16,11 @@ include_config_on_deploy = true
 scopes = "write_products"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://mh-restaurants-spray-suffer.trycloudflare.com/auth/callback",
+  "https://mh-restaurants-spray-suffer.trycloudflare.com/auth/shopify/callback",
+  "https://mh-restaurants-spray-suffer.trycloudflare.com/api/auth/callback"
+]
 
 [webhooks]
 api_version = "2024-07"
