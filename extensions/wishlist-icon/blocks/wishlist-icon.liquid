@@ -31,6 +31,7 @@
     }
 
     connectedCallback() {
+        this.checkIfIsInDB();
         this.addToFavorites();
     }
 
@@ -47,6 +48,14 @@
 
     updateIcon() {
       this.isFavorite = !this.isFavorite;
+      if (this.isFavorite) {
+        this.svg.setAttribute('fill', this.color);
+      } else {
+        this.svg.setAttribute('fill', 'none');
+      }
+    }
+
+    updateIconOnLoad() {
       if (this.isFavorite) {
         this.svg.setAttribute('fill', this.color);
       } else {
@@ -71,6 +80,24 @@
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.error(error));
+    }
+
+    checkIfIsInDB() {
+      fetch(`${this.appUrl}/api/wishlist?customerId={{ customer.id }}&productId={{ product.id }}&shop={{ shop.permanent_domain }}`)
+        .then(response => response.json())
+        .then(result => {
+          console.log('checkIfIsInDB:', result);
+          if (result.data.length > 0) {
+            this.isFavorite = true;
+          } else {
+            this.isFavorite = false;
+          }
+          console.log('IsFavorite:', this.isFavorite);
+          this.updateIconOnLoad();
+        })
+        .catch(error => console.log('error:', error));
+
+      console.log('wishlisted is:', this.wishlisted)
     }
 
   }
