@@ -28,6 +28,7 @@
         this.svg = this.querySelector('svg');
         this.isFavorite = false;
         this.appUrl = 'https://ppm-thongs-handy-exp.trycloudflare.com';
+        this.wishlisted = false;
     }
 
     connectedCallback() {
@@ -36,14 +37,14 @@
     }
 
     addToFavorites() {
-        this.wishlistBtn.addEventListener('click', () => {
-            {% unless customer %}
-              alert('Please login to add to wishlist');
-              return;
-            {% endunless %}
-            this.updateIcon();
-            this.createInBD();
-        });
+      this.wishlistBtn.addEventListener('click', () => {
+        {% unless customer %}
+          alert('Please login to add to wishlist');
+          return;
+        {% endunless %}
+        this.updateIcon();
+        this.createInBD();
+      });
     }
 
     updateIcon() {
@@ -68,7 +69,7 @@
       formdata.append("customerId", "{{ customer.id }}");
       formdata.append("productId", "{{ product.id }}");
       formdata.append("shop", "{{ shop.permanent_domain }}");
-      formdata.append("_action", "CREATE");
+      formdata.append("_action", this.wishlisted ? "DELETE" : "CREATE");
 
       const requestOptions = {
         method: "POST",
@@ -77,8 +78,16 @@
       };
 
       fetch(`${this.appUrl}/api/wishlist`, requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
+        .then((response) => response.json())
+        .then((result) => {
+          if(result.wishlisted) {
+            this.isFavorite = true;
+            this.wishlisted = true;
+          } else {
+            this.wishlisted = false;
+            this.wishlisted = false;
+          }
+        })
         .catch((error) => console.error(error));
     }
 
@@ -89,15 +98,15 @@
           console.log('checkIfIsInDB:', result);
           if (result.data.length > 0) {
             this.isFavorite = true;
+            this.wishlisted = true;
           } else {
             this.isFavorite = false;
+            this.wishlisted = false;
           }
           console.log('IsFavorite:', this.isFavorite);
           this.updateIconOnLoad();
         })
         .catch(error => console.log('error:', error));
-
-      console.log('wishlisted is:', this.wishlisted)
     }
 
   }
