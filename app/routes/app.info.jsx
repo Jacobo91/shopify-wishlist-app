@@ -31,9 +31,9 @@ export default function InfoPage() {
                                 <Text as="p" variant="bodyMd">
                                     Gain valuable insights into your store’s most-liked products with our intuitive dashboard. 
                                     The app tracks and displays products with the highest number of likes, allowing merchants to 
-                                    identify trends and plan targeted marketing campaigns to drive sales.
-                                    <Link to="/app/additional">Go to</Link>
+                                    identify trends and plan targeted marketing campaigns to drive sales. 
                                 </Text>
+                                <Link to="/app/popularitydashboard">Visit popularity dashboard</Link>
                             </Box>
                         </Grid.Cell>
                         <Grid.Cell columnSpan={{xs: 6, sm: 3, md: 3, lg: 6, xl: 6}}>
