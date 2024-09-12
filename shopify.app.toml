@@ -3,7 +3,7 @@
 client_id = "e118e7ee216306ccbc93df4b4c2f2dbf"
 name = "wishlist-app"
 handle = "wishlist-app-189"
-application_url = "https://ppm-thongs-handy-exp.trycloudflare.com"
+application_url = "https://issue-patches-analyst-resistant.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://ppm-thongs-handy-exp.trycloudflare.com/auth/callback",
-  "https://ppm-thongs-handy-exp.trycloudflare.com/auth/shopify/callback",
-  "https://ppm-thongs-handy-exp.trycloudflare.com/api/auth/callback"
+  "https://issue-patches-analyst-resistant.trycloudflare.com/auth/callback",
+  "https://issue-patches-analyst-resistant.trycloudflare.com/auth/shopify/callback",
+  "https://issue-patches-analyst-resistant.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
