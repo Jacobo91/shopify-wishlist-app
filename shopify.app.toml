@@ -3,7 +3,7 @@
 client_id = "e118e7ee216306ccbc93df4b4c2f2dbf"
 name = "wishlist-app"
 handle = "wishlist-app-189"
-application_url = "https://issue-patches-analyst-resistant.trycloudflare.com"
+application_url = "https://coming-cologne-arm-issues.trycloudflare.com"
 embedded = true
 
 [build]
@@ -13,13 +13,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "read_customers,write_products"
 
 [auth]
 redirect_urls = [
-  "https://issue-patches-analyst-resistant.trycloudflare.com/auth/callback",
-  "https://issue-patches-analyst-resistant.trycloudflare.com/auth/shopify/callback",
-  "https://issue-patches-analyst-resistant.trycloudflare.com/api/auth/callback"
+  "https://coming-cologne-arm-issues.trycloudflare.com/auth/callback",
+  "https://coming-cologne-arm-issues.trycloudflare.com/auth/shopify/callback",
+  "https://coming-cologne-arm-issues.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

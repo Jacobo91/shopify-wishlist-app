@@ -75,7 +75,7 @@ export async function loader({ request }) {
   const fetchedProducts = await getProductsInfo(productsIds);
 
   const productMap = fetchedProducts.reduce((map, product) => {
-    const productId = product.id.split('/').pop(); // Extract the product ID
+    const productId = product.id.split('/').pop();
     map[productId] = {
       title: product.title,
       featuredImage: product.featuredImage.url
@@ -131,14 +131,14 @@ export default function PopularityDashboard() {
                       resourceName={{ singular: 'product', plural: 'products' }}
                       items={wishlistData}
                       renderItem={(item) => {
-                        const {featuredImage, title, likes, productId, customerIds} = item;
+                        const {featuredImage, title, likes, productId} = item;
                         const media = <Image src={featuredImage} width={80} height={80}/>;
 
                         return (
                           <ResourceItem
                             id={productId}
                             media={media}
-                            url={`/app/likedproductsinfo/${customerIds}`}
+                            url={`/app/likedproductsinfo/${productId}`}
                           >
                             <Text><strong>Title:</strong> {title}</Text>
                             <Text><strong>Likes:</strong> {likes}</Text>

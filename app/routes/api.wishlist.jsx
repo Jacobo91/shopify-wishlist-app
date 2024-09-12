@@ -2,32 +2,69 @@ import { json } from "@remix-run/node";
 import db from "../db.server";
 import { cors } from 'remix-utils/cors';
 
+// export async function loader({ request }) {
+//   const url = new URL(request.url);
+//   const customerId = url.searchParams.get("customerId");
+//   const shop = url.searchParams.get("shop");
+//   const productId = url.searchParams.get("productId");
 
-// get request: accept request with request: customerId, shop, productId.
-// read database and return wishlist items for that customer.
+
+//   if(!customerId || !shop || !productId) {
+//     return json({
+//       message: "Missing data. Required data: customerId, productId, shop",
+//       method: "GET"
+//     });
+//   }
+
+//   const wishlist = await db.wishlist.findMany({
+//     where: {
+//       customerId: customerId,
+//       shop: shop,
+//       productId: productId,
+//     },
+//   });
+
+
+//   const response = json({
+//     ok: true,
+//     message: "Success",
+//     data: wishlist,
+//   });
+
+//   return cors(request, response);
+
+// }
+
+
+// get request: return wishlist items based on productId or customerId, shop, productId.
 export async function loader({ request }) {
   const url = new URL(request.url);
   const customerId = url.searchParams.get("customerId");
   const shop = url.searchParams.get("shop");
   const productId = url.searchParams.get("productId");
 
+  let wishlist;
 
-  if(!customerId || !shop || !productId) {
+  if (productId && !customerId && !shop) {
+    // Get wishlist items based only on productId
+    wishlist = await db.wishlist.findMany({
+      where: { productId },
+    });
+  } else if (customerId && shop && productId) {
+    // Get wishlist items based on customerId, shop, and productId
+    wishlist = await db.wishlist.findMany({
+      where: {
+        customerId: customerId,
+        shop: shop,
+        productId: productId,
+      },
+    });
+  } else {
     return json({
-      message: "Missing data. Required data: customerId, productId, shop",
+      message: "Missing data. Required: customerId, productId, shop or just productId",
       method: "GET"
     });
   }
-
-  // If customerId, shop, productId is provided, return wishlist items for that customer.
-  const wishlist = await db.wishlist.findMany({
-    where: {
-      customerId: customerId,
-      shop: shop,
-      productId: productId,
-    },
-  });
-
 
   const response = json({
     ok: true,
@@ -36,12 +73,8 @@ export async function loader({ request }) {
   });
 
   return cors(request, response);
-
 }
 
-
-// Expexted data comes from post request. If
-// customerID, productID, shop
 export async function action({ request }) {
 
   let data = await request.formData();
